@@ -4,7 +4,7 @@
 TEST(StringCalculatorAddTests, ExpectZeroForEmptyInput) {
     int expectedresult = 0;
     const char* input = "Hello, world!";
-    int result = add(input);
+    int result = add("");
     ASSERT_EQ(result, expectedresult);
 }
 
