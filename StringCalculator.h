@@ -1,29 +1,35 @@
-#include<string.h>
-#include<ctype.h>
-#include<stdio.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <StringCalculator.h>
 
-
-
-int sumOfDigitsInString(const char* input) {
+int add(const char *input_string) {
     int sum = 0;
+    int current_number = 0;
+    int in_number = 0;  // Flag to track if currently parsing a number
     
-    while (*input != '\0') {
-       
-        if (isdigit((unsigned char)*input) && (isdigit((unsigned char)*input))<1000) {
-           
-            sum += *input - '0';
-             
+    // Traverse through each character of the input string
+    while (*input_string) {
+        if (isdigit(*input_string)) {
+            current_number = current_number * 10 + (*input_string - '0');
+            in_number = 1;
+        } else {
+            // If we were parsing a number, add it to sum if it's <= 1000
+            if (in_number) {
+                if (current_number <= 1000) {
+                    sum += current_number;
+                }
+                current_number = 0;
+                in_number = 0;
+            }
         }
-        input++; 
+        input_string++;
     }
+    
+    // Add the last number if the string ends with a number <= 1000
+    if (in_number && current_number <= 1000) {
+        sum += current_number;
+    }
+    
     return sum;
-}
-
-
-
-int add(const char* input){
-if(input == ""){
-      return 0;
-  } 
-  return sumOfDigitsInString(input);
 }
